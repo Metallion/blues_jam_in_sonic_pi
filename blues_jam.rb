@@ -5,12 +5,14 @@ root = 48
 
 in_thread do
   current_measure = 0
+  set :chorus, current_chorus = 1
   
   live_loop :measure_setter do
     if current_measure < 12
       set :measure, current_measure += 1
     else
       set :measure, current_measure = 1
+      set :chorus, current_chorus += 1
     end
     
     sleep 4
