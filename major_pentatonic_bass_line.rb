@@ -1,22 +1,3 @@
-# Welcome to Sonic Pi v3.1
-
-use_bpm 100
-
-in_thread do
-  loop do
-    sample :drum_bass_soft
-    sample :drum_cymbal_closed
-    sleep 2/3.0
-    sample :drum_cymbal_closed
-    sleep 1/3.0
-    sample :drum_snare_soft
-    sample :drum_cymbal_closed
-    sleep 2/3.0
-    sample :drum_cymbal_closed
-    sleep 1/3.0
-  end
-end
-
 in_thread do
   root = 48
   
