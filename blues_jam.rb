@@ -67,7 +67,7 @@ in_thread do
 end
 
 in_thread do
-  use_synth :chiplead
+  use_synth :blade
   root_ = root
   
   live_loop :bass do
