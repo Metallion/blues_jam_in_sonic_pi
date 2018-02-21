@@ -96,22 +96,15 @@ in_thread(name: :guitar) do
   use_synth :pluck
   root = key
   
-  def play_major_7_chord(root)
-    play root
-    play root + 4
-    play root + 5
-    play root + 10
-  end
-  
   loop do
-    play_major_7_chord root
+    play chord(root, :major7), amp: 1.5
     sleep 1
     sleep 2/3.0
-    play_major_7_chord root
+    play chord(root, :major7), amp: 1.5
     sleep 1/3.0
-    play_major_7_chord root
+    play chord(root, :major7), amp: 1.5
     sleep 2/3.0
-    play_major_7_chord root
+    play chord(root, :major7), amp: 1.5
     sleep 1/3.0
     sleep 1
     root = sync :key
