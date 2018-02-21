@@ -48,9 +48,7 @@ in_thread(name: :bass) do
   use_synth :blade
   root = key
 
-  def main_line(root)
-    notes = (ring root, root + 4, root + 7, root + 4)
-
+  def simple_shuffle_bass(notes)
     4.times do
       note = notes.tick
       play note
@@ -58,31 +56,27 @@ in_thread(name: :bass) do
       play note
       sleep 1/3.0
     end
+  end
+
+  def major_chord_arpeggio(root)
+    simple_shuffle_bass (ring root, root + 4, root + 7, root + 4)
   end
 
   def walkup_to_4th(root)
-    notes = (ring root, root + 1, root + 2, root + 3)
-
-    4.times do
-      note = notes.tick
-      play note
-      sleep 2/3.0
-      play note
-      sleep 1/3.0
-    end
+    simple_shuffle_bass (ring root, root + 1, root + 2, root + 3)
   end
 
   loop do
-    3.times { main_line(root); root = sync :key }
+    3.times { major_chord_arpeggio(root); root = sync :key }
 
     if rand(0..1) == 0
-      main_line(root)
+      major_chord_arpeggio(root)
     else
       walkup_to_4th(root)
     end
     root = sync :key
 
-    8.times { main_line(root); root = sync :key }
+    8.times { major_chord_arpeggio(root); root = sync :key }
   end
 end
 
