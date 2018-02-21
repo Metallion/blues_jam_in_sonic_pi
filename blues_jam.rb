@@ -1,22 +1,6 @@
 use_bpm 100
 key = note(:G3)
 
-in_thread(name: :measure_setter) do
-  current_measure = 0
-  set :chorus, current_chorus = 1
-
-  loop do
-    if current_measure < 12
-      set :measure, current_measure += 1
-    else
-      set :measure, current_measure = 1
-      set :chorus, current_chorus += 1
-    end
-
-    sleep 4
-  end
-end
-
 in_thread(name: :key_setter) do
   loop do
     4.times do
