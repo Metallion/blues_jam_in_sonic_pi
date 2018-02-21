@@ -1,7 +1,7 @@
 # Welcome to Sonic Pi v3.1
 
 use_bpm 100
-key = 48
+key = note(:G3)
 
 in_thread(name: :measure_setter) do
   current_measure = 0
