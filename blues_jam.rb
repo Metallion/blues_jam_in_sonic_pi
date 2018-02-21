@@ -6,7 +6,7 @@ key = 48
 in_thread(name: :measure_setter) do
   current_measure = 0
   set :chorus, current_chorus = 1
-
+  
   loop do
     if current_measure < 12
       set :measure, current_measure += 1
@@ -14,7 +14,7 @@ in_thread(name: :measure_setter) do
       set :measure, current_measure = 1
       set :chorus, current_chorus += 1
     end
-
+    
     sleep 4
   end
 end
@@ -26,26 +26,26 @@ in_thread(name: :key_setter) do
       set :key, key
       sleep 4
     end
-
+    
     2.times do
       set :key, key + 5
       sleep 4
     end
-
+    
     2.times do
       set :key, key
       sleep 4
     end
-
+    
     set :key, key + 7
     sleep 4
-
+    
     set :key, key + 5
     sleep 4
-
+    
     set :key, key
     sleep 4
-
+    
     set :key, key + 7
     sleep 4
   end
@@ -69,7 +69,7 @@ end
 in_thread(name: :bass) do
   use_synth :blade
   root = key
-
+  
   loop do
     play root
     sleep 2/3.0
@@ -87,7 +87,33 @@ in_thread(name: :bass) do
     sleep 2/3.0
     play root + 4
     sleep 1/3.0
+    
+    root = sync :key
+  end
+end
 
+in_thread(name: :guitar) do
+  use_synth :pluck
+  root = key
+  
+  def play_major_7_chord(root)
+    play root
+    play root + 4
+    play root + 5
+    play root + 10
+  end
+  
+  loop do
+    play_major_7_chord root
+    sleep 1
+    sleep 2/3.0
+    play_major_7_chord root
+    sleep 1/3.0
+    play_major_7_chord root
+    sleep 2/3.0
+    play_major_7_chord root
+    sleep 1/3.0
+    sleep 1
     root = sync :key
   end
 end
