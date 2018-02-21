@@ -70,25 +70,55 @@ in_thread(name: :bass) do
   use_synth :blade
   root = key
   
+  def main_line(root)
+    play root
+    sleep 2/3.0
+    play root
+    sleep 1/3.0
+    play root + 4
+    sleep 2/3.0
+    play root + 4
+    sleep 1/3.0
+    play root + 7
+    sleep 2/3.0
+    play root + 7
+    sleep 1/3.0
+    play root + 4
+    sleep 2/3.0
+    play root + 4
+    sleep 1/3.0
+  end
+  
+  def walkup_to_4th(root)
+    play root
+    sleep 2/3.0
+    play root
+    sleep 1/3.0
+    play root + 1
+    sleep 2/3.0
+    play root + 1
+    sleep 1/3.0
+    play root + 2
+    sleep 2/3.0
+    play root + 2
+    sleep 1/3.0
+    play root + 3
+    sleep 2/3.0
+    play root + 3
+    sleep 1/3.0
+  end
+  
   loop do
-    play root
-    sleep 2/3.0
-    play root
-    sleep 1/3.0
-    play root + 4
-    sleep 2/3.0
-    play root + 4
-    sleep 1/3.0
-    play root + 7
-    sleep 2/3.0
-    play root + 7
-    sleep 1/3.0
-    play root + 4
-    sleep 2/3.0
-    play root + 4
-    sleep 1/3.0
+    3.times { main_line(root); root = sync :key }
     
+    if rand(0..1) == 0
+      main_line(root)
+    else
+      walkup_to_4th(root)
+    end
     root = sync :key
+    
+    8.times { main_line(root); root = sync :key }
   end
 end
 
