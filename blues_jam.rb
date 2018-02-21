@@ -79,9 +79,9 @@ in_thread do
     sleep 2/3.0
     play root_ + 4
     sleep 1/3.0
-    play root_ + 8
+    play root_ + 7
     sleep 2/3.0
-    play root_ + 8
+    play root_ + 7
     sleep 1/3.0
     play root_ + 4
     sleep 2/3.0
