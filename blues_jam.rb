@@ -69,41 +69,27 @@ in_thread(name: :bass) do
   root = key
 
   def main_line(root)
-    play root
-    sleep 2/3.0
-    play root
-    sleep 1/3.0
-    play root + 4
-    sleep 2/3.0
-    play root + 4
-    sleep 1/3.0
-    play root + 7
-    sleep 2/3.0
-    play root + 7
-    sleep 1/3.0
-    play root + 4
-    sleep 2/3.0
-    play root + 4
-    sleep 1/3.0
+    notes = (ring root, root + 4, root + 7, root + 4)
+
+    4.times do
+      note = notes.tick
+      play note
+      sleep 2/3.0
+      play note
+      sleep 1/3.0
+    end
   end
 
   def walkup_to_4th(root)
-    play root
-    sleep 2/3.0
-    play root
-    sleep 1/3.0
-    play root + 1
-    sleep 2/3.0
-    play root + 1
-    sleep 1/3.0
-    play root + 2
-    sleep 2/3.0
-    play root + 2
-    sleep 1/3.0
-    play root + 3
-    sleep 2/3.0
-    play root + 3
-    sleep 1/3.0
+    notes = (ring root, root + 1, root + 2, root + 3)
+
+    4.times do
+      note = notes.tick
+      play note
+      sleep 2/3.0
+      play note
+      sleep 1/3.0
+    end
   end
 
   loop do
