@@ -1,5 +1,3 @@
-# Welcome to Sonic Pi v3.1
-
 use_bpm 100
 key = note(:G3)
 
