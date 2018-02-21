@@ -13,7 +13,6 @@ in_thread(name: :key_setter) do
       set :key, key + 5
       sleep 4
     end
-
     2.times do
       set :key, key
       sleep 4
@@ -21,13 +20,10 @@ in_thread(name: :key_setter) do
 
     set :key, key + 7
     sleep 4
-
     set :key, key + 5
     sleep 4
-
     set :key, key
     sleep 4
-
     set :key, key + 7
     sleep 4
   end
