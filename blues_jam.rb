@@ -76,6 +76,10 @@ in_thread(name: :bass) do
     simple_shuffle_bass (ring root, root + 1, root + 2, root + 3)
   end
 
+  def walkup_to_5th(root)
+    simple_shuffle_bass (ring root, root + 4, root + 5, root + 6)
+  end
+
   loop do
     3.times { major_chord_arpeggio(root); root = sync :key }
 
@@ -86,7 +90,10 @@ in_thread(name: :bass) do
     end
     root = sync :key
 
-    8.times { major_chord_arpeggio(root); root = sync :key }
+    6.times { major_chord_arpeggio(root); root = sync :key }
+
+    walkup_to_5th(root); root = sync :key
+    major_chord_arpeggio(root); root = sync :key
   end
 end
 
