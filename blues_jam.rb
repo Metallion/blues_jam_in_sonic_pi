@@ -56,7 +56,7 @@ end
 
 in_thread(name: :bass) do
   use_synth :blade
-  @bass_root = key
+  root = key
 
   def simple_shuffle_bass(notes)
     4.times do
@@ -68,19 +68,19 @@ in_thread(name: :bass) do
     end
   end
 
-  def major_chord_arpeggio
-    simple_shuffle_bass (ring @bass_root, @bass_root + 4, @bass_root + 7, @bass_root + 4)
-    @bass_root = sync :key
+  define :major_chord_arpeggio do
+    simple_shuffle_bass (ring root, root + 4, root + 7, root + 4)
+    root = sync :key
   end
 
-  def walkup_to_4th
-    simple_shuffle_bass (ring @bass_root, @bass_root + 1, @bass_root + 2, @bass_root + 3)
-    @bass_root = sync :key
+  define :walkup_to_4th do
+    simple_shuffle_bass (ring root, root + 1, root + 2, root + 3)
+    root = sync :key
   end
 
-  def walkup_to_5th
-    simple_shuffle_bass (ring @bass_root, @bass_root + 4, @bass_root + 5, @bass_root + 6)
-    @bass_root = sync :key
+  define :walkup_to_5th do
+    simple_shuffle_bass (ring root, root + 4, root + 5, root + 6)
+    root = sync :key
   end
 
   loop do
