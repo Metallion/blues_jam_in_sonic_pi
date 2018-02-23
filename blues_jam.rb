@@ -1,10 +1,20 @@
 use_bpm 100
 key = note(:G3)
 
-in_thread(name: :key_setter) do
+in_thread(name: :conductor) do
   loop do
-    4.times do
-      #TODO: Set second bar to 4th based on RNG
+    set :key, key
+    sleep 4
+
+    # Some times play the 4chord on the second bar
+    if rand(0..1) == 0
+      set :key, key + 5
+    else
+      set :key, key
+    end
+    sleep 4
+
+    2.times do
       set :key, key
       sleep 4
     end
