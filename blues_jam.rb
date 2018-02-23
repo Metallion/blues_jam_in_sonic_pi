@@ -83,6 +83,14 @@ in_thread(name: :bass) do
     root = sync :key
   end
 
+  define :turnaround_5th do
+    play root
+    sleep 1
+    sleep 2/3.0
+    play root, sustain: (2 + 1/3.0)
+    root = sync :key
+  end
+
   loop do
     3.times { major_chord_arpeggio }
 
@@ -95,7 +103,7 @@ in_thread(name: :bass) do
     6.times { major_chord_arpeggio }
 
     walkup_to_5th
-    major_chord_arpeggio
+    turnaround_5th
   end
 end
 
