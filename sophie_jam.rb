@@ -1,6 +1,6 @@
 use_bpm 120
 
-root = :e4
+set :key, :e4
 
 in_thread name: :guitar do
   sync :start_guitar
@@ -130,14 +130,14 @@ in_thread name: :conductor do
   cue :start_guitar
   
   loop do
-    4.times { tick_measure root }
+    4.times { tick_measure get[:key] }
     
-    2.times { tick_measure root + 5 }
-    2.times { tick_measure root }
+    2.times { tick_measure get[:key] + 5 }
+    2.times { tick_measure get[:key] }
     
-    tick_measure root + 7
-    tick_measure root + 5
-    tick_measure root
-    tick_measure root + 7
+    tick_measure get[:key] + 7
+    tick_measure get[:key] + 5
+    tick_measure get[:key]
+    tick_measure get[:key] + 7
   end
 end
