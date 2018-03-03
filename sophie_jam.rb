@@ -62,28 +62,47 @@ in_thread name: :guitar do
   
 end
 
-live_loop :bass, sync: :start_bass do
+in_thread name: :bass do
+  sync :start_bass
   use_synth :fm
   opts = { amp: 0.3 }
   
-  play get[:root] - 12, opts
-  sleep 2/3.0
-  play get[:root] - 12, opts
-  sleep 1/3.0
-  play get[:root] - 12, opts
-  sleep 1
-  play get[:root] - 12 + 3, opts
-  sleep 2/3.0
-  play get[:root] - 12 + 3, opts
-  sleep 1/3.0
-  
-  major_4 = chord(get[:root] - 12 + 5, :major)
-  3.times do
-    play major_4.tick, opts
+  define :main_bassline do
+    play get[:root] - 12, opts
+    sleep 2/3.0
+    play get[:root] - 12, opts
     sleep 1/3.0
+    play get[:root] - 12, opts
+    sleep 1
+    play get[:root] - 12 + 3, opts
+    sleep 2/3.0
+    play get[:root] - 12 + 3, opts
+    sleep 1/3.0
+    
+    major_4 = chord(get[:root] - 12 + 5, :major)
+    3.times do
+      play major_4.tick, opts
+      sleep 1/3.0
+    end
   end
   
-  sync :root
+  define :root_triplets do
+    (4 * 3).times do
+      play get[:root] - 12, opts
+      sleep 1/3.0
+    end
+  end
+  
+  loop do
+    11.times do
+      main_bassline
+      sync :root
+    end
+    
+    root_triplets
+    sync :root
+  end
+  
 end
 
 live_loop :drums, sync: :start_drums do
