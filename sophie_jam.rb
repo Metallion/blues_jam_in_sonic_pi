@@ -3,10 +3,10 @@ use_bpm 120
 root = :e4
 set :root, root
 
-live_loop :guitar, sync: :start_guitar do
-  with_fx :distortion do
-    use_synth :pluck
-    
+in_thread name: :guitar do
+  sync :start_guitar
+  
+  define :main_progression do
     play chord(get[:root], :major)
     sleep 1
     play chord(get[:root], :major)
@@ -20,7 +20,47 @@ live_loop :guitar, sync: :start_guitar do
     sleep 1/3.0
   end
   
-  sync :measure
+  define :simple_chord_shuffle do
+    4.times do
+      play chord(get[:root], :major)
+      sleep 2/3.0
+      play chord(get[:root], :major)
+      sleep 1/3.0
+    end
+  end
+  
+  define :simple_chord_triples do
+    4.times do
+      3.times do
+        play chord(get[:root], :major)
+        sleep 1/3.0
+      end
+    end
+  end
+  
+  loop do
+    with_fx :distortion do
+      use_synth :pluck
+      
+      8.times do
+        main_progression
+        
+        sync :measure
+      end
+      
+      2.times do
+        simple_chord_shuffle
+        sync :measure
+      end
+      
+      main_progression
+      sync :measure
+      
+      simple_chord_triples
+      sync :measure
+    end
+  end
+  
 end
 
 live_loop :bass, sync: :start_bass do
