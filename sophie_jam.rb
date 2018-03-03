@@ -1,7 +1,6 @@
 use_bpm 120
 
 root = :e4
-set :root, root
 
 in_thread name: :guitar do
   sync :start_guitar
@@ -45,19 +44,19 @@ in_thread name: :guitar do
       8.times do
         main_progression
         
-        sync :measure
+        sync :root
       end
       
       2.times do
         simple_chord_shuffle
-        sync :measure
+        sync :root
       end
       
       main_progression
-      sync :measure
+      sync :root
       
       simple_chord_triples
-      sync :measure
+      sync :root
     end
   end
   
@@ -84,7 +83,7 @@ live_loop :bass, sync: :start_bass do
     sleep 1/3.0
   end
   
-  sync :measure
+  sync :root
 end
 
 live_loop :drums, sync: :start_drums do
@@ -101,8 +100,8 @@ live_loop :drums, sync: :start_drums do
 end
 
 define :tick_measure do |new_root = nil|
-  sleep 4
   set :root, new_root if new_root
+  sleep 4
   cue :measure
 end
 
@@ -110,16 +109,13 @@ live_loop :conductor do
   cue :start_drums
   cue :start_bass
   cue :start_guitar
-  3.times { tick_measure }
-  tick_measure root + 5
+  4.times { tick_measure root }
   
-  tick_measure
-  tick_measure root
-  tick_measure
+  2.times { tick_measure root + 5 }
+  2.times { tick_measure root }
+  
   tick_measure root + 7
-  
   tick_measure root + 5
   tick_measure root
   tick_measure root + 7
-  tick_measure root
 end
