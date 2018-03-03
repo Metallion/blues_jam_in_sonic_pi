@@ -99,23 +99,26 @@ live_loop :drums, sync: :start_drums do
   sleep 1/3.0
 end
 
-define :tick_measure do |new_root = nil|
-  set :root, new_root if new_root
-  sleep 4
-  cue :measure
-end
-
-live_loop :conductor do
+in_thread name: :conductor do
+  define :tick_measure do |new_root = nil|
+    set :root, new_root if new_root
+    sleep 4
+    cue :measure
+  end
+  
   cue :start_drums
   cue :start_bass
   cue :start_guitar
-  4.times { tick_measure root }
   
-  2.times { tick_measure root + 5 }
-  2.times { tick_measure root }
-  
-  tick_measure root + 7
-  tick_measure root + 5
-  tick_measure root
-  tick_measure root + 7
+  loop do
+    4.times { tick_measure root }
+    
+    2.times { tick_measure root + 5 }
+    2.times { tick_measure root }
+    
+    tick_measure root + 7
+    tick_measure root + 5
+    tick_measure root
+    tick_measure root + 7
+  end
 end
