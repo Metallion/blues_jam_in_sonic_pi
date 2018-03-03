@@ -1,3 +1,3 @@
-A simple blues jam coded in Sonic Pi.
+Just a bunch of messing around with Sonic Pi.
 
 http://sonic-pi.net
