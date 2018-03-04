@@ -23,21 +23,53 @@ live_loop :bass do
     play get[:root] - 5 # perfecft fifth
     sleep 2
   end
+end
+
+live_loop :vocals do
+  r = get[:root]
+  sleep 4 * 7
+  sleep 2.5
   
-  set :end_it, true
-  stop
+  with_fx :distortion do
+    play_pattern_timed [r, r, r, r + 3, r, r],
+      [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+    sleep 2.5
+    
+    sleep 1.5
+    play_pattern_timed [r, r, r, r, r],
+      [0.5, 0.5, 0.5, 0.5, 0.5]
+    play_pattern_timed [r, r, r, r, r, r, r],
+      [0.5, 0.5, 0.5, 0.5, 0.75, 0.75, 1]
+    
+    sleep 2
+    #TODO: Slide this major 3rd
+    play_pattern_timed [r, r, r, r + 4, r, r],
+      [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+    sleep 2.5
+    
+    sleep 2
+    play_pattern_timed [r, r, r], [0.5, 0.5, 0.5]
+    sleep 0.5
+  end
 end
 
 live_loop :drums do
-  stop if get[:end_it]
-  sample :drum_bass_hard, amp: 0.7
-  sleep 1
-  sample :drum_snare_soft
-  sleep 1
+  sleep 16
+  
+  (16 + 32).times do
+    sample :drum_bass_hard, amp: 0.7
+    sleep 1
+  end
+  
+  32.times do
+    sample :drum_bass_hard, amp: 0.7
+    sleep 1
+    sample :drum_snare_soft
+    sleep 1
+  end
 end
 
-live_loop :ending do
-  sync :end_it
+live_loop :ending, sync: :finish do
   use_synth :fm
   
   with_fx :distortion do
