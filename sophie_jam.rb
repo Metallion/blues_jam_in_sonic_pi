@@ -1,29 +1,30 @@
 use_bpm 120
 
-set :key, :e4
+set :key, :e3
 
 in_thread name: :guitar do
   sync :start_guitar
+  root = sync :root
   
   define :main_progression do
-    play chord(get[:root], :major)
+    play chord(root, :major)
     sleep 1
-    play chord(get[:root], :major)
+    play chord(root, :major)
     sleep 1
-    play get[:root] + 3, amp: 0.5
+    play root + 3, amp: 0.5
     sleep 1
-    play chord(get[:root] + 5, :major)
+    play chord(root + 5, :major)
     sleep 2/3.0
-    play get[:root] + 7, amp: 0.5
-    play get[:root] + 3, amp: 0.5
+    play root + 7, amp: 0.5
+    play root + 3, amp: 0.5
     sleep 1/3.0
   end
   
   define :simple_chord_shuffle do
     4.times do
-      play chord(get[:root], :major)
+      play chord(root, :major)
       sleep 2/3.0
-      play chord(get[:root], :major)
+      play chord(root, :major)
       sleep 1/3.0
     end
   end
@@ -31,7 +32,7 @@ in_thread name: :guitar do
   define :simple_chord_triples do
     4.times do
       3.times do
-        play chord(get[:root], :major)
+        play chord(root, :major)
         sleep 1/3.0
       end
     end
@@ -44,19 +45,19 @@ in_thread name: :guitar do
       8.times do
         main_progression
         
-        sync :root
+        root = sync :root
       end
       
       2.times do
         simple_chord_shuffle
-        sync :root
+        root = sync :root
       end
       
       main_progression
-      sync :root
+      root = sync :root
       
       simple_chord_triples
-      sync :root
+      root = sync :root
     end
   end
   
@@ -64,22 +65,23 @@ end
 
 in_thread name: :bass do
   sync :start_bass
+  root = sync :root
   use_synth :fm
   opts = { amp: 0.3 }
   
   define :main_bassline do
-    play get[:root] - 12, opts
+    play root - 12, opts
     sleep 2/3.0
-    play get[:root] - 12, opts
+    play root - 12, opts
     sleep 1/3.0
-    play get[:root] - 12, opts
+    play root - 12, opts
     sleep 1
-    play get[:root] - 12 + 3, opts
+    play root - 12 + 3, opts
     sleep 2/3.0
-    play get[:root] - 12 + 3, opts
+    play root - 12 + 3, opts
     sleep 1/3.0
     
-    major_4 = chord(get[:root] - 12 + 5, :major)
+    major_4 = chord(root - 12 + 5, :major)
     3.times do
       play major_4.tick, opts
       sleep 1/3.0
@@ -88,7 +90,7 @@ in_thread name: :bass do
   
   define :root_triplets do
     (4 * 3).times do
-      play get[:root] - 12, opts
+      play root - 12, opts
       sleep 1/3.0
     end
   end
@@ -96,11 +98,11 @@ in_thread name: :bass do
   loop do
     11.times do
       main_bassline
-      sync :root
+      root = sync :root
     end
     
     root_triplets
-    sync :root
+    root = sync :root
   end
   
 end
