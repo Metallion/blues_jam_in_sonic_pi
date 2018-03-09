@@ -1,6 +1,6 @@
 use_bpm 120
 
-key = :c5
+key = :c4
 set :key, key
 
 define :play_intro do |interval = 0, opts = {}|
@@ -84,7 +84,7 @@ in_thread name: :lead do
   
 end
 
-live_loop :drums, sync: :start_drums do
+live_loop :drums do
   sample :drum_bass_soft, amp: 1.3
   sample :drum_cymbal_closed
   sleep 0.5
@@ -103,10 +103,6 @@ in_thread name: :conductor do
     sleep 4
     cue :measure
   end
-  
-  cue :start_drums
-  #cue :start_bass
-  #cue :start_guitar
   
   sleep 8
   
